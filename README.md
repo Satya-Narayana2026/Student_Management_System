@@ -229,6 +229,7 @@ The navigation and protected views are designed according to the user's role.
 
 The major relationships in the application are:
 
+```text
 Department
     │
     └── Course
@@ -236,14 +237,17 @@ Department
           └── Subject
                  │
                  └── Teacher
+```
 
 Students are connected to courses:
 
+```text
 Department
     │
     └── Course
           │
           └── Student
+```
 
 Teachers can teach multiple subjects:
 
@@ -313,7 +317,9 @@ mysqlclient
 
 
 ## 📁 Project Structure:
+# 📁 Project Structure
 
+```text
 STUDENT_MANAGEMENT_SYSTEM/
 │
 ├── backend/
@@ -357,6 +363,7 @@ STUDENT_MANAGEMENT_SYSTEM/
 ├── .gitignore
 ├── run.bat
 └── README.md
+```
 
 
 
