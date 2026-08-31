@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }} - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="student-form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon">
+                📚
+            </div>
+
+            <div>
+
+                <h2>{{ title }}</h2>
+
+                <p>
+                    Enter the course information below
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="form-errors">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="form-grid">
+
+
+                <div class="form-field">
+
+                    <label for="{{ form.department.id_for_label }}">
+
+                        Department
+
+                    </label>
+
+                    {{ form.department }}
+
+                    {% if form.department.errors %}
+
+                        <div class="field-error">
+
+                            {{ form.department.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="{{ form.name.id_for_label }}">
+
+                        Course Name
+
+                    </label>
+
+                    {{ form.name }}
+
+                    {% if form.name.errors %}
+
+                        <div class="field-error">
+
+                            {{ form.name.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="{{ form.code.id_for_label }}">
+
+                        Course Code
+
+                    </label>
+
+                    {{ form.code }}
+
+                    {% if form.code.errors %}
+
+                        <div class="field-error">
+
+                            {{ form.code.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="{{ form.duration_years.id_for_label }}">
+
+                        Duration (Years)
+
+                    </label>
+
+                    {{ form.duration_years }}
+
+                    {% if form.duration_years.errors %}
+
+                        <div class="field-error">
+
+                            {{ form.duration_years.errors }}
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 Save Course
+                </button>
+
+
+                <a
+                    href="{% url 'courses:course_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

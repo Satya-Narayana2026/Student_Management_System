@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}
+Courses - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- ========================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Courses</h1>
+
+            <p>
+                Manage all courses
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'courses:course_add' %}"
+            class="btn btn-primary"
+        >
+            + Add Course
+        </a>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MESSAGES -->
+    <!-- ========================= -->
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ========================= -->
+    <!-- SEARCH AND FILTER -->
+    <!-- ========================= -->
+
+    <div class="search-box">
+
+        <form method="GET">
+
+            <!-- SEARCH -->
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search by course name or code..."
+            >
+
+
+            <!-- DEPARTMENT -->
+
+            <select
+                name="department"
+                class="form-control"
+            >
+
+                <option value="">
+                    All Departments
+                </option>
+
+
+                {% for department in departments %}
+
+                    <option
+                        value="{{ department.id }}"
+                        {% if selected_department == department.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+
+                        {{ department.code }}
+                        -
+                        {{ department.name }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Search
+            </button>
+
+
+            <!-- CLEAR -->
+
+            {% if search or selected_department %}
+
+                <a
+                    href="{% url 'courses:course_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- COURSE TABLE -->
+    <!-- ========================= -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Course Code
+                    </th>
+
+                    <th>
+                        Course Name
+                    </th>
+
+                    <th>
+                        Department
+                    </th>
+
+                    <th>
+                        Duration
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for course in page_obj %}
+
+                    <tr>
+
+                        <!-- COURSE CODE -->
+
+                        <td>
+                            <strong>
+                                {{ course.code }}
+                            </strong>
+                        </td>
+
+
+                        <!-- COURSE NAME -->
+
+                        <td>
+                            {{ course.name }}
+                        </td>
+
+
+                        <!-- DEPARTMENT -->
+
+                        <td>
+
+                            <strong>
+                                {{ course.department.code }}
+                            </strong>
+
+                            <br>
+
+                            <small>
+                                {{ course.department.name }}
+                            </small>
+
+                        </td>
+
+
+                        <!-- DURATION -->
+
+                        <td>
+                            {{ course.duration_years }} Years
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <a
+                                href="{% url 'courses:course_edit' course.pk %}"
+                                class="action-link"
+                            >
+                                Edit
+                            </a>
+
+
+                            <a
+                                href="{% url 'courses:course_delete' course.pk %}"
+                                class="action-link delete-link"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty-message"
+                        >
+
+                            No courses found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- PAGINATION -->
+    <!-- ========================= -->
+
+    {% if page_obj.has_other_pages %}
+
+        <div class="pagination">
+
+
+            {% if page_obj.has_previous %}
+
+                <a
+                    href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search|urlencode }}{% endif %}{% if selected_department %}&department={{ selected_department }}{% endif %}"
+                >
+                    Previous
+                </a>
+
+            {% endif %}
+
+
+            <span>
+
+                Page
+                {{ page_obj.number }}
+                of
+                {{ page_obj.paginator.num_pages }}
+
+            </span>
+
+
+            {% if page_obj.has_next %}
+
+                <a
+                    href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search|urlencode }}{% endif %}{% if selected_department %}&department={{ selected_department }}{% endif %}"
+                >
+                    Next
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

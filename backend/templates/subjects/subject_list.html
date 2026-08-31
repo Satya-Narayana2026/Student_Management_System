@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+
+{% block title %}
+Subjects - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Subjects</h1>
+
+            <p>
+                Manage all subjects
+            </p>
+
+        </div>
+
+        <a
+            href="{% url 'subjects:subject_add' %}"
+            class="btn btn-primary"
+        >
+            + Add Subject
+        </a>
+
+    </div>
+
+
+    <!-- SEARCH AND FILTER -->
+
+    <div class="search-box">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search by subject name, code or course..."
+            >
+
+
+            <select
+                name="department"
+                id="department-filter"
+                class="form-control"
+            >
+                <option value="">
+                    All Departments
+                </option>
+
+                {% for department in departments %}
+
+                    <option
+                        value="{{ department.id }}"
+                        {% if selected_department == department.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ department.code }} - {{ department.name }}
+                    </option>
+
+                {% endfor %}
+            </select>
+
+
+            <select
+                name="course"
+                id="course-filter"
+                class="form-control"
+            >
+                <option value="">
+                    All Courses
+                </option>
+
+                {% for course in courses %}
+
+                    <option
+                        value="{{ course.id }}"
+                        data-department="{{ course.department.id }}"
+                        {% if selected_course == course.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ course.code }} - {{ course.name }}
+                    </option>
+
+                {% endfor %}
+            </select>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Search
+            </button>
+
+
+            {% if search or selected_department or selected_course %}
+
+                <a
+                    href="{% url 'subjects:subject_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+
+    <!-- SUBJECT TABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+                    <th>Subject Code</th>
+                    <th>Subject Name</th>
+                    <th>Course</th>
+                    <th>Department</th>
+                    <th>Semester</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for subject in page_obj %}
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+                        <td>
+                            {{ subject.code }}
+                        </td>
+
+                        <td>
+                            {{ subject.name }}
+                        </td>
+
+                        <td>
+                            {{ subject.course.code }}
+                            -
+                            {{ subject.course.name }}
+                        </td>
+
+                        <td>
+                            {{ subject.course.department.code }}
+                            -
+                            {{ subject.course.department.name }}
+                        </td>
+
+                        <td>
+                            Semester {{ subject.semester }}
+                        </td>
+
+                        <td>
+
+                            <a
+                                href="{% url 'subjects:subject_edit' subject.pk %}"
+                                class="action-link"
+                            >
+                                Edit
+                            </a>
+
+                            <a
+                                href="{% url 'subjects:subject_delete' subject.pk %}"
+                                class="action-link delete-link"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty-message"
+                        >
+                            No subjects found.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- PAGINATION -->
+
+    {% if page_obj.has_other_pages %}
+
+        <div class="pagination">
+
+            {% if page_obj.has_previous %}
+
+                <a
+                    href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_department %}&department={{ selected_department }}{% endif %}{% if selected_course %}&course={{ selected_course }}{% endif %}"
+                >
+                    Previous
+                </a>
+
+            {% endif %}
+
+
+            <span>
+
+                Page {{ page_obj.number }}
+                of
+                {{ page_obj.paginator.num_pages }}
+
+            </span>
+
+
+            {% if page_obj.has_next %}
+
+                <a
+                    href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_department %}&department={{ selected_department }}{% endif %}{% if selected_course %}&course={{ selected_course }}{% endif %}"
+                >
+                    Next
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const departmentFilter =
+        document.getElementById("department-filter");
+
+    const courseFilter =
+        document.getElementById("course-filter");
+
+    function filterCourses() {
+
+        const selectedDepartment =
+            departmentFilter.value;
+
+        const selectedCourse =
+            courseFilter.value;
+
+        const options =
+            courseFilter.querySelectorAll("option");
+
+        options.forEach(function (option, index) {
+
+            if (index === 0) {
+                option.style.display = "";
+                return;
+            }
+
+            const courseDepartment =
+                option.getAttribute("data-department");
+
+            if (
+                selectedDepartment === "" ||
+                courseDepartment === selectedDepartment
+            ) {
+
+                option.style.display = "";
+
+            } else {
+
+                option.style.display = "none";
+
+                if (option.value === selectedCourse) {
+                    courseFilter.value = "";
+                }
+            }
+        });
+    }
+
+    departmentFilter.addEventListener(
+        "change",
+        filterCourses
+    );
+
+    filterCourses();
+
+});
+</script>

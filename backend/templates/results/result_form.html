@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }} - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                {{ title }}
+            </h1>
+
+            <p>
+                Enter student examination marks
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESULT FORM -->
+
+    <div class="card form-card">
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- NON FIELD ERRORS -->
+
+            {% if form.non_field_errors %}
+
+                <div class="field-error">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- STUDENT -->
+
+            <div class="form-group">
+
+                <label for="{{ form.student.id_for_label }}">
+
+                    Student
+                    <span class="required">*</span>
+
+                </label>
+
+                {{ form.student }}
+
+
+                {% if form.student.errors %}
+
+                    <div class="field-error">
+
+                        {{ form.student.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- SUBJECT -->
+
+            <div class="form-group">
+
+                <label for="{{ form.subject.id_for_label }}">
+
+                    Subject
+                    <span class="required">*</span>
+
+                </label>
+
+                {{ form.subject }}
+
+
+                {% if form.subject.errors %}
+
+                    <div class="field-error">
+
+                        {{ form.subject.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- INTERNAL MARKS -->
+
+            <div class="form-group">
+
+                <label for="{{ form.internal_marks.id_for_label }}">
+
+                    Internal Marks
+                    <span class="required">*</span>
+
+                </label>
+
+                {{ form.internal_marks }}
+
+
+                {% if form.internal_marks.errors %}
+
+                    <div class="field-error">
+
+                        {{ form.internal_marks.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- EXTERNAL MARKS -->
+
+            <div class="form-group">
+
+                <label for="{{ form.external_marks.id_for_label }}">
+
+                    External Marks
+                    <span class="required">*</span>
+
+                </label>
+
+                {{ form.external_marks }}
+
+
+                {% if form.external_marks.errors %}
+
+                    <div class="field-error">
+
+                        {{ form.external_marks.errors }}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'results:result_list' %}"
+                    class="btn btn-secondary"
+                >
+
+                    Cancel
+
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+
+                    {{ button_text|default:"Save Result" }}
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Subjects - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                My Subjects
+            </h1>
+
+            <p>
+                Subjects you teach
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- TEACHER INFORMATION -->
+
+    <div class="profile-card">
+
+        <h2>
+            {{ teacher.first_name }}
+            {{ teacher.last_name }}
+        </h2>
+
+        <p>
+            <strong>
+                Department:
+            </strong>
+
+            {{ teacher.department.code }}
+            -
+            {{ teacher.department.name }}
+        </p>
+
+    </div>
+
+
+    <!-- SUBJECTS -->
+
+    <div class="page-header my-teacher-subjects-header">
+
+        <div>
+
+            <h2>
+                Subjects
+            </h2>
+
+            <p>
+                All subjects assigned to you
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Subject Code
+                    </th>
+
+                    <th>
+                        Subject Name
+                    </th>
+
+                    <th>
+                        Course
+                    </th>
+
+                    <th>
+                        Semester
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for subject in subjects %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ subject.code }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ subject.name }}
+                        </td>
+
+                        <td>
+
+                            {{ subject.course.code }}
+                            -
+                            {{ subject.course.name }}
+
+                        </td>
+
+                        <td>
+
+                            Semester
+                            {{ subject.semester }}
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="4"
+                            class="empty-message"
+                        >
+
+                            No subjects assigned to you yet.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

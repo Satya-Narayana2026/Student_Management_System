@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete Student
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="delete-container">
+
+        <h1>Delete Student</h1>
+
+        <p>
+            Are you sure you want to delete
+            <strong>
+                {{ student.first_name }}
+                {{ student.last_name }}
+            </strong>
+            ?
+        </p>
+
+        <p>
+            Student ID:
+            <strong>{{ student.student_id }}</strong>
+        </p>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <button
+                type="submit"
+                class="btn btn-danger"
+            >
+                Yes, Delete
+            </button>
+
+            <a
+                href="{% url 'students:student_list' %}"
+                class="btn btn-secondary"
+            >
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+My Profile - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>My Profile</h1>
+
+            <p>
+                View your personal information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+
+                {{ student.first_name|first }}
+
+            </div>
+
+
+            <div>
+
+                <h2>
+
+                    {{ student.first_name }}
+                    {{ student.last_name }}
+
+                </h2>
+
+                <p>
+
+                    Student ID:
+                    {{ student.student_id }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-details">
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Email
+                </span>
+
+                <span class="detail-value">
+                    {{ student.email }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Phone
+                </span>
+
+                <span class="detail-value">
+                    {{ student.phone }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Course
+                </span>
+
+                <span class="detail-value">
+
+                    {% if student.course %}
+
+                        {{ student.course }}
+
+                    {% else %}
+
+                        Not Assigned
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Year
+                </span>
+
+                <span class="detail-value">
+
+                    {{ student.get_year_display }}
+
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Gender
+                </span>
+
+                <span class="detail-value">
+
+                    {{ student.get_gender_display }}
+
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Date of Birth
+                </span>
+
+                <span class="detail-value">
+
+                    {{ student.date_of_birth|default:"Not Available" }}
+
+                </span>
+
+            </div>
+
+
+            <div class="detail-item full-detail">
+
+                <span class="detail-label">
+                    Address
+                </span>
+
+                <span class="detail-value">
+
+                    {{ student.address|default:"Not Available" }}
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,316 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}
+        Student Management System
+        {% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ========================= -->
+<!-- NAVIGATION BAR -->
+<!-- ========================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-brand">
+
+        Student Management System
+
+    </div>
+
+
+    <div class="navbar-links">
+
+        {% if user.is_authenticated %}
+
+
+            <!-- ========================= -->
+            <!-- STUDENT NAVIGATION -->
+            <!-- ========================= -->
+
+            {% if user.groups.all %}
+
+                {% for group in user.groups.all %}
+
+                    {% if group.name == "Student" %}
+
+                        <!-- Dashboard -->
+
+                        <a href="{% url 'dashboard:dashboard' %}">
+                            Dashboard
+                        </a>
+
+
+                        <!-- My Profile -->
+
+                        <a
+                            href="{% url 'students:student_detail' user.student_profile.pk %}"
+                        >
+                            My Profile
+                        </a>
+
+
+                        <!-- My Course -->
+
+                        <a
+                            href="{% url 'students:my_course' %}"
+                        >
+                            My Course
+                        </a>
+
+
+                        <!-- My Attendance -->
+
+                        <a
+                            href="{% url 'attendance:attendance_list' %}"
+                        >
+                            My Attendance
+                        </a>
+
+
+                        <!-- My Results -->
+
+                        <a
+                            href="{% url 'results:result_list' %}"
+                        >
+                            My Results
+                        </a>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% endif %}
+
+
+
+            <!-- ========================= -->
+            <!-- TEACHER NAVIGATION -->
+            <!-- ========================= -->
+
+            {% for group in user.groups.all %}
+
+                {% if group.name == "Teacher" %}
+
+
+                    <!-- Dashboard -->
+
+                    <a
+                        href="{% url 'dashboard:dashboard' %}"
+                    >
+                        Dashboard
+                    </a>
+
+
+                    <!-- Students -->
+
+                    <a
+                        href="{% url 'students:student_list' %}"
+                    >
+                        Students
+                    </a>
+
+
+                    <!-- Attendance -->
+
+                    <a
+                        href="{% url 'attendance:attendance_list' %}"
+                    >
+                        Attendance
+                    </a>
+
+
+                    <!-- Results -->
+
+                    <a
+                        href="{% url 'results:result_list' %}"
+                    >
+                        Results
+                    </a>
+
+
+                    <!-- My Profile -->
+
+                    <a
+                        href="{% url 'teachers:my_profile' %}"
+                    >
+                        My Profile
+                    </a>
+
+
+                    <!-- My Subjects -->
+
+                    <a
+                        href="{% url 'teachers:my_subjects' %}"
+                    >
+                        My Subjects
+                    </a>
+
+
+                {% endif %}
+
+            {% endfor %}
+
+
+
+            <!-- ========================= -->
+            <!-- ADMIN NAVIGATION -->
+            <!-- ========================= -->
+
+            {% if user.is_superuser %}
+
+
+                <!-- Dashboard -->
+
+                <a
+                    href="{% url 'dashboard:dashboard' %}"
+                >
+                    Dashboard
+                </a>
+
+
+                <!-- Students -->
+
+                <a
+                    href="{% url 'students:student_list' %}"
+                >
+                    Students
+                </a>
+
+
+                <!-- Departments -->
+
+                <a
+                    href="{% url 'departments:department_list' %}"
+                >
+                    Departments
+                </a>
+
+
+                <!-- Courses -->
+
+                <a
+                    href="{% url 'courses:course_list' %}"
+                >
+                    Courses
+                </a>
+
+
+                <!-- Subjects -->
+
+                <a
+                    href="{% url 'subjects:subject_list' %}"
+                >
+                    Subjects
+                </a>
+
+
+                <!-- Teachers -->
+
+                <a
+                    href="{% url 'teachers:teacher_list' %}"
+                >
+                    Teachers
+                </a>
+
+
+                <!-- Attendance -->
+
+                <a
+                    href="{% url 'attendance:attendance_list' %}"
+                >
+                    Attendance
+                </a>
+
+
+                <!-- Results -->
+
+                <a
+                    href="{% url 'results:result_list' %}"
+                >
+                    Results
+                </a>
+
+
+            {% endif %}
+
+
+
+            <!-- ========================= -->
+            <!-- USER INFORMATION -->
+            <!-- ========================= -->
+
+            <span class="username">
+
+                Welcome, {{ user.username }}
+
+            </span>
+
+
+            <!-- ========================= -->
+            <!-- LOGOUT -->
+            <!-- ========================= -->
+
+            <a
+                href="{% url 'accounts:logout' %}"
+            >
+                Logout
+            </a>
+
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+
+<!-- ========================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================= -->
+
+<main class="main-content">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script
+    src="{% static 'js/main.js' %}"
+></script>
+
+
+</body>
+
+</html>

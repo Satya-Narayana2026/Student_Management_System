@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}
+Departments - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <div>
+            <h1>Departments</h1>
+            <p>Manage academic departments</p>
+        </div>
+
+        <a
+            href="{% url 'departments:department_add' %}"
+            class="btn btn-primary"
+        >
+            + Add Department
+        </a>
+
+    </div>
+
+
+    <div class="search-box">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search by department name or code..."
+            >
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Search
+            </button>
+
+            {% if search %}
+
+                <a
+                    href="{% url 'departments:department_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Department Code</th>
+                    <th>Department Name</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for department in page_obj %}
+
+                    <tr>
+
+                        <td>
+                            {{ department.code }}
+                        </td>
+
+                        <td>
+                            {{ department.name }}
+                        </td>
+
+                        <td>
+
+                            <a
+                                href="{% url 'departments:department_edit' department.pk %}"
+                                class="action-link"
+                            >
+                                Edit
+                            </a>
+
+                            <a
+                                href="{% url 'departments:department_delete' department.pk %}"
+                                class="action-link delete-link"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            class="empty-message"
+                        >
+                            No departments found.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% if page_obj.has_other_pages %}
+
+        <div class="pagination">
+
+            {% if page_obj.has_previous %}
+
+                <a
+                    href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}"
+                >
+                    Previous
+                </a>
+
+            {% endif %}
+
+            <span>
+                Page {{ page_obj.number }}
+                of
+                {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+
+                <a
+                    href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}"
+                >
+                    Next
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

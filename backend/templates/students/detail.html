@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Student Details
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <div>
+            <h1>Student Details</h1>
+
+            <p>
+                {{ student.student_id }}
+            </p>
+        </div>
+
+        <a
+            href="{% url 'students:student_list' %}"
+            class="btn btn-secondary"
+        >
+            Back
+        </a>
+
+    </div>
+
+
+    <div class="details-container">
+
+        <div class="detail-row">
+            <strong>Student ID</strong>
+            <span>{{ student.student_id }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>First Name</strong>
+            <span>{{ student.first_name }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Last Name</strong>
+            <span>{{ student.last_name }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Email</strong>
+            <span>{{ student.email }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Phone</strong>
+            <span>{{ student.phone }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Date of Birth</strong>
+            <span>{{ student.date_of_birth }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Gender</strong>
+            <span>{{ student.get_gender_display }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Course</strong>
+            <span>{{ student.course }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Year</strong>
+            <span>{{ student.get_year_display }}</span>
+        </div>
+
+        <div class="detail-row">
+            <strong>Address</strong>
+            <span>{{ student.address }}</span>
+        </div>
+
+    </div>
+
+
+    <div class="form-actions">
+
+       {% if is_admin %}
+
+    <a
+        href="{% url 'students:student_edit' student.pk %}"
+        class="btn btn-primary"
+    >
+        Edit Student
+    </a>
+
+    <a
+        href="{% url 'students:student_delete' student.pk %}"
+        class="btn btn-danger"
+    >
+        Delete Student
+    </a>
+
+{% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

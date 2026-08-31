@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}
+Student Dashboard - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-header">
+
+        <h1>
+            Student Dashboard
+        </h1>
+
+        <p>
+            Welcome, {{ request.user.username }}
+        </p>
+
+    </div>
+
+
+    <!-- STUDENT DASHBOARD CARDS -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- MY PROFILE -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    👤
+                </div>
+
+                <h2>
+                    My Profile
+                </h2>
+
+                <p>
+                    View your complete student information and personal details.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'students:student_detail' request.user.student_profile.pk %}"
+                class="dashboard-btn"
+            >
+                View Profile →
+            </a>
+
+        </div>
+
+
+        <!-- MY COURSE -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📚
+                </div>
+
+                <h2>
+                    My Course
+                </h2>
+
+                <p>
+                    View your course details and assigned subjects.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'students:my_course' %}"
+                class="dashboard-btn"
+            >
+                View Course →
+            </a>
+
+        </div>
+
+
+        <!-- MY ATTENDANCE -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📅
+                </div>
+
+                <h2>
+                    My Attendance
+                </h2>
+
+                <p>
+                    View your attendance records and daily attendance status.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'attendance:attendance_list' %}"
+                class="dashboard-btn"
+            >
+                View Attendance →
+            </a>
+
+        </div>
+
+
+        <!-- MY RESULTS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📝
+                </div>
+
+                <h2>
+                    My Results
+                </h2>
+
+                <p>
+                    View your examination marks, total score and grades.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'results:result_list' %}"
+                class="dashboard-btn"
+            >
+                View Results →
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

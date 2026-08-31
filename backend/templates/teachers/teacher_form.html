@@ -1,0 +1,831 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }} - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="student-form-card">
+
+        <!-- =========================================
+             FORM HEADER
+        ========================================= -->
+
+        <div class="form-card-header">
+
+            <div class="form-icon">
+                👨‍🏫
+            </div>
+
+            <div>
+                <h2>{{ title }}</h2>
+
+                <p>
+                    Enter the teacher information below
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             FORM
+        ========================================= -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="form-errors">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
+
+
+            <div class="form-grid">
+
+
+                <!-- TEACHER ID -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.teacher_id.id_for_label }}">
+                        Teacher ID
+
+                        {% if form.teacher_id.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.teacher_id }}
+
+                    {% if form.teacher_id.errors %}
+                        <div class="field-error">
+                            {{ form.teacher_id.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- FIRST NAME -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.first_name.id_for_label }}">
+                        First Name
+
+                        {% if form.first_name.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.first_name }}
+
+                    {% if form.first_name.errors %}
+                        <div class="field-error">
+                            {{ form.first_name.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- LAST NAME -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.last_name.id_for_label }}">
+                        Last Name
+
+                        {% if form.last_name.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.last_name }}
+
+                    {% if form.last_name.errors %}
+                        <div class="field-error">
+                            {{ form.last_name.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.email.id_for_label }}">
+                        Email
+
+                        {% if form.email.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.email }}
+
+                    {% if form.email.errors %}
+                        <div class="field-error">
+                            {{ form.email.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PHONE -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.phone.id_for_label }}">
+                        Phone
+
+                        {% if form.phone.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.phone }}
+
+                    {% if form.phone.errors %}
+                        <div class="field-error">
+                            {{ form.phone.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- DEPARTMENT -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.department.id_for_label }}">
+                        Department
+
+                        {% if form.department.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.department }}
+
+                    {% if form.department.errors %}
+                        <div class="field-error">
+                            {{ form.department.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- =================================
+                     TEACHES
+                ================================= -->
+
+                <div class="form-field full-width teacher-teaches-field">
+
+                    <label class="teacher-teaches-title">
+                        Teaches
+                    </label>
+
+
+                    <!-- SUBJECT CHECKBOXES -->
+
+                    <div
+                        id="teacher-subjects-container"
+                        class="teacher-subject-checkboxes"
+                    >
+
+                        <div class="subjects-placeholder">
+                            Select Department First
+                        </div>
+
+                    </div>
+
+
+                    <small class="teacher-subject-help">
+                        Select all subjects this teacher teaches.
+                    </small>
+
+
+                    {% if form.subjects.errors %}
+
+                        <div class="field-error">
+                            {{ form.subjects.errors }}
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- Hidden Django field -->
+
+                    <div style="display: none;">
+
+                        {{ form.subjects }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESIGNATION -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.designation.id_for_label }}">
+                        Designation
+
+                        {% if form.designation.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.designation }}
+
+                    {% if form.designation.errors %}
+                        <div class="field-error">
+                            {{ form.designation.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- QUALIFICATION -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.qualification.id_for_label }}">
+                        Qualification
+
+                        {% if form.qualification.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.qualification }}
+
+                    {% if form.qualification.errors %}
+                        <div class="field-error">
+                            {{ form.qualification.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- JOINING DATE -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.joining_date.id_for_label }}">
+                        Joining Date
+
+                        {% if form.joining_date.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+                    </label>
+
+                    {{ form.joining_date }}
+
+                    {% if form.joining_date.errors %}
+                        <div class="field-error">
+                            {{ form.joining_date.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="form-field full-width">
+
+                    <label for="{{ form.address.id_for_label }}">
+                        Address
+                    </label>
+
+                    {{ form.address }}
+
+                    {% if form.address.errors %}
+                        <div class="field-error">
+                            {{ form.address.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- USERNAME -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.username.id_for_label }}">
+                        Username
+
+                        <span class="required">*</span>
+                    </label>
+
+                    {{ form.username }}
+
+                    {% if form.username.errors %}
+                        <div class="field-error">
+                            {{ form.username.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.password.id_for_label }}">
+                        Password
+
+                        <span class="required">*</span>
+                    </label>
+
+                    {{ form.password }}
+
+                    {% if form.password.errors %}
+                        <div class="field-error">
+                            {{ form.password.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 ACTION BUTTONS
+            ================================= -->
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'teachers:teacher_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+
+                    {% if button_text %}
+                        {{ button_text }}
+
+                    {% elif title == "Edit Teacher" %}
+                        Update Teacher
+
+                    {% else %}
+                        Save Teacher
+                    {% endif %}
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     DEPARTMENT → SUBJECTS AJAX
+========================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const departmentSelect =
+        document.getElementById(
+            "teacher-department"
+        );
+
+    const subjectsContainer =
+        document.getElementById(
+            "teacher-subjects-container"
+        );
+
+    const originalSelect =
+        document.querySelector(
+            'select[name="subjects"]'
+        );
+
+
+    if (
+        !departmentSelect ||
+        !subjectsContainer
+    ) {
+        return;
+    }
+
+
+    /*
+     * Get subjects already selected
+     * while editing.
+     */
+
+    let existingSubjects = [];
+
+
+    if (originalSelect) {
+
+        existingSubjects =
+            Array.from(
+                originalSelect.options
+            )
+            .filter(function (option) {
+
+                return option.selected;
+
+            })
+            .map(function (option) {
+
+                return String(
+                    option.value
+                );
+
+            });
+
+    }
+
+
+    /*
+     * Synchronize visible checkboxes
+     * with Django's hidden field.
+     */
+
+    function syncSubjects() {
+
+        if (!originalSelect) {
+            return;
+        }
+
+
+        /*
+         * Clear all Django selections.
+         */
+
+        Array.from(
+            originalSelect.options
+        ).forEach(function (option) {
+
+            option.selected = false;
+
+        });
+
+
+        /*
+         * Get checked subjects.
+         */
+
+        const checkedBoxes =
+            subjectsContainer.querySelectorAll(
+                'input[name="subjects"]:checked'
+            );
+
+
+        /*
+         * Select matching options
+         * in Django's original field.
+         */
+
+        checkedBoxes.forEach(function (checkbox) {
+
+            Array.from(
+                originalSelect.options
+            ).forEach(function (option) {
+
+                if (
+                    String(option.value) ===
+                    String(checkbox.value)
+                ) {
+
+                    option.selected = true;
+
+                }
+
+            });
+
+        });
+
+    }
+
+
+    /*
+     * Load subjects for department.
+     */
+
+    function loadSubjects(
+        departmentId,
+        selectedSubjects = []
+    ) {
+
+        subjectsContainer.innerHTML = "";
+
+
+        /*
+         * Department not selected.
+         */
+
+        if (!departmentId) {
+
+            const placeholder =
+                document.createElement("div");
+
+            placeholder.className =
+                "subjects-placeholder";
+
+            placeholder.textContent =
+                "Select Department First";
+
+            subjectsContainer.appendChild(
+                placeholder
+            );
+
+            return;
+        }
+
+
+        /*
+         * Loading message.
+         */
+
+        const loading =
+            document.createElement("div");
+
+        loading.className =
+            "subjects-placeholder";
+
+        loading.textContent =
+            "Loading subjects...";
+
+        subjectsContainer.appendChild(
+            loading
+        );
+
+
+        /*
+         * AJAX request.
+         */
+
+        fetch(
+            "{% url 'teachers:subjects_by_department' %}" +
+            "?department_id=" +
+            encodeURIComponent(
+                departmentId
+            )
+        )
+
+        .then(function (response) {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load subjects."
+                );
+
+            }
+
+            return response.json();
+
+        })
+
+        .then(function (data) {
+
+            subjectsContainer.innerHTML = "";
+
+
+            /*
+             * No subjects available.
+             */
+
+            if (
+                !data.subjects ||
+                data.subjects.length === 0
+            ) {
+
+                const placeholder =
+                    document.createElement("div");
+
+                placeholder.className =
+                    "subjects-placeholder";
+
+                placeholder.textContent =
+                    "No subjects available";
+
+                subjectsContainer.appendChild(
+                    placeholder
+                );
+
+                return;
+            }
+
+
+            /*
+             * Create each subject row.
+             */
+
+            data.subjects.forEach(function (subject) {
+
+                const row =
+                    document.createElement("div");
+
+                row.className =
+                    "teacher-subject-item";
+
+
+                /*
+                 * Checkbox.
+                 */
+
+                const checkbox =
+                    document.createElement(
+                        "input"
+                    );
+
+                checkbox.type =
+                    "checkbox";
+
+                checkbox.name =
+                    "subjects";
+
+                checkbox.value =
+                    subject.id;
+
+                checkbox.id =
+                    "teacher-subject-" +
+                    subject.id;
+
+
+                /*
+                 * Restore selection
+                 * during Edit.
+                 */
+
+                if (
+                    selectedSubjects.includes(
+                        String(subject.id)
+                    )
+                ) {
+
+                    checkbox.checked =
+                        true;
+
+                }
+
+
+                /*
+                 * Label.
+                 */
+
+                const label =
+                    document.createElement(
+                        "label"
+                    );
+
+                label.setAttribute(
+                    "for",
+                    checkbox.id
+                );
+
+
+                /*
+                 * Subject text.
+                 */
+
+                label.textContent =
+                    subject.code +
+                    " - " +
+                    subject.name +
+                    " (" +
+                    subject.course +
+                    ", Semester " +
+                    subject.semester +
+                    ")";
+
+
+                /*
+                 * Add checkbox and label.
+                 */
+
+                row.appendChild(
+                    checkbox
+                );
+
+                row.appendChild(
+                    label
+                );
+
+
+                subjectsContainer.appendChild(
+                    row
+                );
+
+
+                /*
+                 * Update hidden Django field
+                 * when checkbox changes.
+                 */
+
+                checkbox.addEventListener(
+                    "change",
+                    function () {
+
+                        syncSubjects();
+
+                    }
+                );
+
+            });
+
+
+            /*
+             * Initial synchronization.
+             */
+
+            syncSubjects();
+
+        })
+
+        .catch(function () {
+
+            subjectsContainer.innerHTML =
+                "";
+
+
+            const error =
+                document.createElement(
+                    "div"
+                );
+
+            error.className =
+                "subjects-placeholder";
+
+            error.textContent =
+                "Unable to load subjects.";
+
+            subjectsContainer.appendChild(
+                error
+            );
+
+        });
+
+    }
+
+
+    /*
+     * Department changed.
+     */
+
+    departmentSelect.addEventListener(
+        "change",
+        function () {
+
+            loadSubjects(
+                departmentSelect.value,
+                []
+            );
+
+        }
+    );
+
+
+    /*
+     * Initial page load.
+     */
+
+    loadSubjects(
+        departmentSelect.value,
+        existingSubjects
+    );
+
+});
+
+</script>
+
+{% endblock %}

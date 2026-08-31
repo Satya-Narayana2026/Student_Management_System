@@ -1,0 +1,359 @@
+{% extends "base.html" %}
+
+{% block title %}
+Results - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- ========================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            {% if is_student %}
+
+                <h1>My Results</h1>
+
+                <p>
+                    View your examination results
+                </p>
+
+            {% else %}
+
+                <h1>Results</h1>
+
+                <p>
+                    Manage student examination results
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ADD RESULT -->
+
+        {% if can_manage_results %}
+
+            <a
+                href="{% url 'results:result_add' %}"
+                class="btn btn-primary"
+            >
+                + Add Result
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MESSAGES -->
+    <!-- ========================= -->
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ========================= -->
+    <!-- SEARCH -->
+    <!-- ========================= -->
+
+    {% if not is_student %}
+
+        <div class="search-box">
+
+            <form method="GET">
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    placeholder="Search by Student ID, Name or Subject..."
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Search
+                </button>
+
+
+                {% if search %}
+
+                    <a
+                        href="{% url 'results:result_list' %}"
+                        class="btn btn-secondary"
+                    >
+                        Clear
+                    </a>
+
+                {% endif %}
+
+            </form>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ========================= -->
+    <!-- RESULTS TABLE -->
+    <!-- ========================= -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <!-- STUDENT ID -->
+                    {% if can_manage_results %}
+
+                        <th>
+                            Student ID
+                        </th>
+
+                    {% endif %}
+
+
+                    <th>
+                        Student Name
+                    </th>
+
+
+                    <th>
+                        Course
+                    </th>
+
+
+                    <th>
+                        Subject
+                    </th>
+
+
+                    <th>
+                        Internal
+                    </th>
+
+
+                    <th>
+                        External
+                    </th>
+
+
+                    <th>
+                        Total
+                    </th>
+
+
+                    <th>
+                        Grade
+                    </th>
+
+
+                    <!-- ACTIONS -->
+
+                    {% if can_manage_results %}
+
+                        <th>
+                            Actions
+                        </th>
+
+                    {% endif %}
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for result in results %}
+
+                    <tr>
+
+
+                        <!-- STUDENT ID -->
+
+                        {% if can_manage_results %}
+
+                            <td>
+
+                                {{ result.student.student_id }}
+
+                            </td>
+
+                        {% endif %}
+
+
+                        <!-- STUDENT NAME -->
+
+                        <td>
+
+                            {{ result.student.first_name }}
+                            {{ result.student.last_name }}
+
+                        </td>
+
+
+                        <!-- COURSE -->
+
+                        <td>
+
+                            {{ result.student.course }}
+
+                        </td>
+
+
+                        <!-- SUBJECT -->
+
+                        <td>
+
+                            {{ result.subject.name }}
+
+                        </td>
+
+
+                        <!-- INTERNAL MARKS -->
+
+                        <td>
+
+                            {{ result.internal_marks }}
+
+                        </td>
+
+
+                        <!-- EXTERNAL MARKS -->
+
+                        <td>
+
+                            {{ result.external_marks }}
+
+                        </td>
+
+
+                        <!-- TOTAL MARKS -->
+
+                        <td>
+
+                            {{ result.total_marks }}
+
+                        </td>
+
+
+                        <!-- GRADE -->
+
+                        <td>
+
+                            {{ result.grade }}
+
+                        </td>
+
+
+                        <!-- ========================= -->
+                        <!-- ACTIONS -->
+                        <!-- ========================= -->
+
+                        {% if can_manage_results %}
+
+                            <td>
+
+
+                                <!-- EDIT -->
+
+                                <a
+                                    href="{% url 'results:result_edit' result.pk %}"
+                                    class="action-link"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <!-- DELETE -->
+
+                                {% if is_admin %}
+
+                                    <a
+                                        href="{% url 'results:result_delete' result.pk %}"
+                                        class="action-link delete-link"
+                                    >
+                                        Delete
+                                    </a>
+
+                                {% endif %}
+
+
+                            </td>
+
+                        {% endif %}
+
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+
+                        {% if can_manage_results %}
+
+                            <td
+                                colspan="9"
+                                class="empty-message"
+                            >
+
+                        {% else %}
+
+                            <td
+                                colspan="7"
+                                class="empty-message"
+                            >
+
+                        {% endif %}
+
+
+                            No results found.
+
+                        </td>
+
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

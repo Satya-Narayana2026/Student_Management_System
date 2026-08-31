@@ -1,0 +1,575 @@
+{% extends "base.html" %}
+
+{% block title %}
+Students - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- ========================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Students</h1>
+
+            <p>
+                Manage all students
+            </p>
+
+        </div>
+
+
+        {% if can_manage_students %}
+
+            <a
+                href="{% url 'students:student_add' %}"
+                class="btn btn-primary"
+            >
+                + Add Student
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MESSAGES -->
+    <!-- ========================= -->
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ========================= -->
+    <!-- SEARCH + FILTER -->
+    <!-- ========================= -->
+
+    <div class="search-box">
+
+        <form method="GET">
+
+            <!-- SEARCH -->
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search by Student ID, Name, Email..."
+            >
+
+
+            <!-- DEPARTMENT -->
+
+            <select
+                name="department"
+                id="student-department-filter"
+                class="form-control"
+            >
+
+                <option value="">
+                    All Departments
+                </option>
+
+                {% for department in departments %}
+
+                    <option
+                        value="{{ department.id }}"
+                        {% if selected_department == department.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+
+                        {{ department.code }}
+                        -
+                        {{ department.name }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- COURSE -->
+
+            <select
+                name="course"
+                id="student-course-filter"
+                class="form-control"
+            >
+
+                <option value="">
+                    {% if selected_department %}
+                        All Courses
+                    {% else %}
+                        Select Department First
+                    {% endif %}
+                </option>
+
+                {% for course in courses %}
+
+                    <option
+                        value="{{ course.id }}"
+                        data-department="{{ course.department_id }}"
+                        {% if selected_course == course.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+
+                        {{ course.code }}
+                        -
+                        {{ course.name }}
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Search
+            </button>
+
+
+            <!-- CLEAR -->
+
+            {% if search or selected_department or selected_course %}
+
+                <a
+                    href="{% url 'students:student_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- STUDENT TABLE -->
+    <!-- ========================= -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Student ID
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        Phone
+                    </th>
+
+                    <th>
+                        Department
+                    </th>
+
+                    <th>
+                        Course
+                    </th>
+
+                    <th>
+                        Year
+                    </th>
+
+                    <th>
+                        Actions
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for student in page_obj %}
+
+                    <tr>
+
+                        <!-- STUDENT ID -->
+
+                        <td>
+                            {{ student.student_id }}
+                        </td>
+
+
+                        <!-- NAME -->
+
+                        <td>
+
+                            {{ student.first_name }}
+                            {{ student.last_name }}
+
+                        </td>
+
+
+                        <!-- EMAIL -->
+
+                        <td>
+                            {{ student.email }}
+                        </td>
+
+
+                        <!-- PHONE -->
+
+                        <td>
+                            {{ student.phone }}
+                        </td>
+
+
+                        <!-- DEPARTMENT -->
+
+                        <td>
+
+                            <strong>
+                                {{ student.course.department.code }}
+                            </strong>
+
+                            <br>
+
+                            <small>
+                                {{ student.course.department.name }}
+                            </small>
+
+                        </td>
+
+
+                        <!-- COURSE -->
+
+                        <td>
+
+                            <strong>
+                                {{ student.course.code }}
+                            </strong>
+
+                            <br>
+
+                            <small>
+                                {{ student.course.name }}
+                            </small>
+
+                        </td>
+
+
+                        <!-- YEAR -->
+
+                        <td>
+                            {{ student.get_year_display }}
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <a
+                                href="{% url 'students:student_detail' student.pk %}"
+                                class="action-link"
+                            >
+                                View
+                            </a>
+
+
+                            {% if can_manage_students %}
+
+                                <a
+                                    href="{% url 'students:student_edit' student.pk %}"
+                                    class="action-link"
+                                >
+                                    Edit
+                                </a>
+
+
+                                {% if request.user.is_superuser %}
+
+                                    <a
+                                        href="{% url 'students:student_delete' student.pk %}"
+                                        class="action-link delete-link"
+                                    >
+                                        Delete
+                                    </a>
+
+                                {% endif %}
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="empty-message"
+                        >
+
+                            No students found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- PAGINATION -->
+    <!-- ========================= -->
+
+    {% if page_obj.has_other_pages %}
+
+        <div class="pagination">
+
+
+            {% if page_obj.has_previous %}
+
+                <a
+                    href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search|urlencode }}{% endif %}{% if selected_department %}&department={{ selected_department }}{% endif %}{% if selected_course %}&course={{ selected_course }}{% endif %}"
+                >
+                    Previous
+                </a>
+
+            {% endif %}
+
+
+            <span>
+
+                Page
+                {{ page_obj.number }}
+                of
+                {{ page_obj.paginator.num_pages }}
+
+            </span>
+
+
+            {% if page_obj.has_next %}
+
+                <a
+                    href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search|urlencode }}{% endif %}{% if selected_department %}&department={{ selected_department }}{% endif %}{% if selected_course %}&course={{ selected_course }}{% endif %}"
+                >
+                    Next
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ========================= -->
+<!-- DEPARTMENT → COURSE FILTER -->
+<!-- ========================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const departmentFilter =
+            document.getElementById(
+                "student-department-filter"
+            );
+
+        const courseFilter =
+            document.getElementById(
+                "student-course-filter"
+            );
+
+
+        if (
+            !departmentFilter ||
+            !courseFilter
+        ) {
+            return;
+        }
+
+
+        function filterCourses() {
+
+            const selectedDepartment =
+                departmentFilter.value;
+
+            const options =
+                courseFilter.querySelectorAll(
+                    "option"
+                );
+
+
+            options.forEach(
+                function (option, index) {
+
+                    /*
+                     * Keep the first option visible.
+                     */
+
+                    if (index === 0) {
+
+                        option.style.display =
+                            "";
+
+                        return;
+                    }
+
+
+                    const courseDepartment =
+                        option.getAttribute(
+                            "data-department"
+                        );
+
+
+                    /*
+                     * Show courses belonging
+                     * to selected department.
+                     */
+
+                    if (
+                        selectedDepartment === "" ||
+                        courseDepartment ===
+                        selectedDepartment
+                    ) {
+
+                        option.style.display =
+                            "";
+
+                    } else {
+
+                        option.style.display =
+                            "none";
+
+                        /*
+                         * Clear selected course
+                         * if it doesn't belong
+                         * to selected department.
+                         */
+
+                        if (
+                            option.selected
+                        ) {
+
+                            courseFilter.value =
+                                "";
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * If no department is selected,
+             * show all courses.
+             */
+
+            if (
+                selectedDepartment === ""
+            ) {
+
+                courseFilter.options[0]
+                    .textContent =
+                    "All Courses";
+
+            } else {
+
+                courseFilter.options[0]
+                    .textContent =
+                    "All Courses";
+
+            }
+
+        }
+
+
+        /*
+         * Department changed.
+         */
+
+        departmentFilter.addEventListener(
+            "change",
+            function () {
+
+                /*
+                 * Reset course selection
+                 * when department changes.
+                 */
+
+                courseFilter.value = "";
+
+                filterCourses();
+
+            }
+        );
+
+
+        /*
+         * Initial page load.
+         */
+
+        filterCourses();
+
+    }
+);
+
+</script>
+
+{% endblock %}

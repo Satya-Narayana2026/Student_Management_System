@@ -1,0 +1,413 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }} - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="student-form-card">
+
+        <!-- FORM HEADER -->
+
+        <div class="form-card-header">
+
+            <div class="form-icon">
+                📚
+            </div>
+
+            <div>
+                <h2>{{ title }}</h2>
+
+                <p>
+                    Enter subject information
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+
+            <div class="form-grid">
+
+                <!-- DEPARTMENT -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.department.id_for_label }}">
+
+                        {{ form.department.label }}
+
+                        {% if form.department.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+
+                    </label>
+
+                    {{ form.department }}
+
+                    {% if form.department.errors %}
+
+                        <div class="field-error">
+                            {{ form.department.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- COURSE -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.course.id_for_label }}">
+
+                        {{ form.course.label }}
+
+                        {% if form.course.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+
+                    </label>
+
+                    {{ form.course }}
+
+                    {% if form.course.errors %}
+
+                        <div class="field-error">
+                            {{ form.course.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- SUBJECT NAME -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.name.id_for_label }}">
+
+                        {{ form.name.label }}
+
+                        {% if form.name.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+
+                    </label>
+
+                    {{ form.name }}
+
+                    {% if form.name.errors %}
+
+                        <div class="field-error">
+                            {{ form.name.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- SUBJECT CODE -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.code.id_for_label }}">
+
+                        {{ form.code.label }}
+
+                        {% if form.code.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+
+                    </label>
+
+                    {{ form.code }}
+
+                    {% if form.code.errors %}
+
+                        <div class="field-error">
+                            {{ form.code.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- SEMESTER -->
+
+                <div class="form-field">
+
+                    <label for="{{ form.semester.id_for_label }}">
+
+                        {{ form.semester.label }}
+
+                        {% if form.semester.field.required %}
+                            <span class="required">*</span>
+                        {% endif %}
+
+                    </label>
+
+                    {{ form.semester }}
+
+                    {% if form.semester.errors %}
+
+                        <div class="field-error">
+                            {{ form.semester.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'subjects:subject_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    {{ button_text }}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- DEPARTMENT → COURSE AJAX -->
+<!-- ========================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const departmentSelect =
+        document.getElementById("subject-department");
+
+    const courseSelect =
+        document.getElementById("subject-course");
+
+
+    if (!departmentSelect || !courseSelect) {
+        return;
+    }
+
+
+    /*
+     * Store the course already selected
+     * when editing an existing subject.
+     */
+    const existingCourse =
+        "{{ form.course.value|default:'' }}";
+
+
+    function loadCourses(departmentId, selectedCourseId = "") {
+
+        /*
+         * Clear current courses.
+         */
+        courseSelect.innerHTML = "";
+
+
+        /*
+         * Default option.
+         */
+        const defaultOption =
+            document.createElement("option");
+
+        defaultOption.value = "";
+        defaultOption.textContent =
+            departmentId
+                ? "Loading courses..."
+                : "Select Department First";
+
+        courseSelect.appendChild(
+            defaultOption
+        );
+
+
+        /*
+         * No department selected.
+         */
+        if (!departmentId) {
+            return;
+        }
+
+
+        /*
+         * Request courses from Django.
+         */
+        fetch(
+            "{% url 'subjects:courses_by_department' %}" +
+            "?department_id=" +
+            encodeURIComponent(departmentId)
+        )
+
+        .then(function (response) {
+
+            if (!response.ok) {
+                throw new Error(
+                    "Unable to load courses."
+                );
+            }
+
+            return response.json();
+        })
+
+        .then(function (data) {
+
+            courseSelect.innerHTML = "";
+
+
+            /*
+             * Default course option.
+             */
+            const firstOption =
+                document.createElement("option");
+
+            firstOption.value = "";
+            firstOption.textContent =
+                "Select Course";
+
+            courseSelect.appendChild(
+                firstOption
+            );
+
+
+            /*
+             * Add courses.
+             */
+            data.courses.forEach(
+                function (course) {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value =
+                        course.id;
+
+                    option.textContent =
+                        course.code +
+                        " - " +
+                        course.name;
+
+
+                    /*
+                     * Select existing course
+                     * when editing.
+                     */
+                    if (
+                        String(course.id) ===
+                        String(selectedCourseId)
+                    ) {
+
+                        option.selected = true;
+
+                    }
+
+                    courseSelect.appendChild(
+                        option
+                    );
+                }
+            );
+        })
+
+        .catch(function () {
+
+            courseSelect.innerHTML = "";
+
+            const errorOption =
+                document.createElement("option");
+
+            errorOption.value = "";
+
+            errorOption.textContent =
+                "Unable to load courses";
+
+            courseSelect.appendChild(
+                errorOption
+            );
+        });
+    }
+
+
+    /*
+     * Department changed.
+     */
+    departmentSelect.addEventListener(
+        "change",
+        function () {
+
+            loadCourses(
+                departmentSelect.value
+            );
+
+        }
+    );
+
+
+    /*
+     * Initial page load.
+     *
+     * Useful for Edit Subject.
+     */
+    if (departmentSelect.value) {
+
+        loadCourses(
+            departmentSelect.value,
+            existingCourse
+        );
+
+    } else {
+
+        courseSelect.innerHTML = "";
+
+        const option =
+            document.createElement("option");
+
+        option.value = "";
+
+        option.textContent =
+            "Select Department First";
+
+        courseSelect.appendChild(
+            option
+        );
+    }
+
+});
+
+</script>
+
+{% endblock %}

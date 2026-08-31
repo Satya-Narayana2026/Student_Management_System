@@ -1,0 +1,1713 @@
+/* =========================================
+   RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+
+/* =========================================
+   NAVIGATION BAR
+========================================= */
+
+.navbar {
+    width: 100%;
+    min-height: 70px;
+
+    background: #2563eb;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 35px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+
+    padding: 10px 14px;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    transition: 0.2s ease;
+}
+
+.navbar-links a:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.username {
+    padding: 10px;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.main-content {
+    min-height: calc(100vh - 70px);
+
+    padding: 35px;
+
+    background: #f4f6f9;
+}
+
+
+/* =========================================
+   PAGE CONTAINER
+========================================= */
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 34px;
+    color: #1f2937;
+
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    font-size: 17px;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   PAGE HEADER WITH BUTTON
+========================================= */
+
+.page-container > .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+/* =========================================
+   DASHBOARD HEADER
+========================================= */
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    font-size: 34px;
+    color: #1f2937;
+
+    margin-bottom: 8px;
+}
+
+.dashboard-header p {
+    font-size: 17px;
+    color: #6b7280;
+}
+
+
+/* =========================================
+   DASHBOARD GRID
+========================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 24px;
+}
+
+
+/* =========================================
+   DASHBOARD CARD
+========================================= */
+
+.dashboard-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 14px;
+
+    min-height: 250px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================
+   DASHBOARD ICON
+========================================= */
+
+.dashboard-icon {
+    font-size: 36px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================
+   DASHBOARD CARD TITLE
+========================================= */
+
+.dashboard-card h2,
+.dashboard-card h3 {
+    font-size: 21px;
+
+    color: #1f2937;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   DASHBOARD DESCRIPTION
+========================================= */
+
+.dashboard-card p {
+    color: #6b7280;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   DASHBOARD COUNT
+========================================= */
+
+.dashboard-count {
+    font-size: 42px;
+
+    font-weight: bold;
+
+    color: #2563eb;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   DASHBOARD BUTTON
+========================================= */
+
+.dashboard-btn {
+    display: block;
+
+    width: 100%;
+
+    margin-top: auto;
+
+    padding: 12px 16px;
+
+    background: #2563eb;
+
+    color: white;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-weight: 600;
+
+    border-radius: 8px;
+
+    transition: 0.2s ease;
+}
+
+.dashboard-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   GENERAL CARD
+========================================= */
+
+.card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.07);
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.btn {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+/* PRIMARY */
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+
+/* SECONDARY */
+
+.btn-secondary {
+    background: #f3f4f6;
+
+    color: #374151;
+
+    border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+
+/* DANGER */
+
+.btn-danger,
+.btn-delete {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-danger:hover,
+.btn-delete:hover {
+    background: #b91c1c;
+}
+
+
+/* EDIT */
+
+.btn-edit {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #d97706;
+}
+
+
+/* =========================================
+   ACTION LINKS
+========================================= */
+
+.action-link {
+    display: inline-block;
+
+    padding: 8px 12px;
+
+    margin-right: 6px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+.action-link:hover {
+    background: #dbeafe;
+}
+
+
+/* DELETE ACTION */
+
+.delete-link {
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+.delete-link:hover {
+    background: #fecaca;
+}
+
+
+/* =========================================
+   FORM ACTIONS
+========================================= */
+
+.form-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================
+   TABLE CONTAINER
+========================================= */
+
+.table-container {
+    width: 100%;
+
+    background: white;
+
+    border-radius: 12px;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================
+   GENERAL TABLE
+========================================= */
+
+.table-container table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+/* TABLE CELLS */
+
+.table-container th,
+.table-container td {
+    padding: 14px;
+
+    text-align: left;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* TABLE HEADER */
+
+.table-container th {
+    background: #f9fafb;
+
+    color: #374151;
+
+    font-weight: 600;
+}
+
+
+/* TABLE ROW HOVER */
+
+.table-container tbody tr:hover {
+    background: #f9fafb;
+}
+
+
+/* ACTION COLUMN */
+
+.table-container th:last-child,
+.table-container td:last-child {
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   ATTENDANCE TABLE
+========================================= */
+
+.attendance-table {
+    min-width: 850px;
+}
+
+
+/* =========================================
+   RESULTS TABLE
+========================================= */
+
+.results-table {
+    min-width: 750px;
+}
+
+
+/* =========================================
+   ATTENDANCE STATUS
+========================================= */
+
+.attendance-status {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* PRESENT */
+
+.status-present {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+/* ABSENT */
+
+.status-absent {
+    background: #fee2e2;
+
+    color: #991b1b;
+}
+
+
+/* LATE */
+
+.status-late {
+    background: #fef3c7;
+
+    color: #92400e;
+}
+
+
+/* =========================================
+   FORMS
+========================================= */
+
+.form-container {
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.form-card {
+    max-width: 700px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+/* FORM INPUTS */
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-control {
+    width: 100%;
+
+    padding: 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    background: white;
+}
+
+
+/* FORM FOCUS */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.form-control:focus {
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================================
+   STUDENT FORM
+========================================= */
+
+.student-form-card {
+    max-width: 950px;
+
+    margin: 30px auto;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* FORM HEADER */
+
+.form-card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding-bottom: 25px;
+
+    margin-bottom: 30px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* FORM ICON */
+
+.form-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+
+    background: #eff6ff;
+
+    border-radius: 14px;
+}
+
+
+/* FORM HEADER TEXT */
+
+.form-card-header h2 {
+    font-size: 26px;
+
+    color: #1f2937;
+}
+
+.form-card-header p {
+    margin-top: 5px;
+
+    color: #6b7280;
+}
+
+
+/* FORM GRID */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 24px;
+}
+
+
+/* FORM FIELD */
+
+.form-field {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+/* FULL WIDTH */
+
+.form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* LABEL */
+
+.form-field label {
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+/* REQUIRED */
+
+.required {
+    color: #dc2626;
+}
+
+
+/* INPUT */
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+}
+
+
+/* FOCUS */
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    outline: none;
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* TEXTAREA */
+
+.form-field textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+
+/* =========================================
+   SEARCH BOX
+========================================= */
+
+.search-box {
+    background: white;
+
+    padding: 20px;
+
+    margin-bottom: 20px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-box form {
+    display: flex;
+
+    gap: 10px;
+
+    align-items: center;
+}
+
+.search-box input {
+    flex: 1;
+
+    padding: 11px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+.profile-card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+.profile-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+
+.profile-details {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 25px;
+
+    margin-top: 30px;
+}
+
+
+.detail-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.detail-label {
+    font-size: 14px;
+
+    color: #6b7280;
+
+    font-weight: 600;
+}
+
+
+.detail-value {
+    font-size: 17px;
+
+    color: #1f2937;
+}
+
+
+.full-detail {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================
+   DETAILS
+========================================= */
+
+.details-container {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 10px;
+}
+
+
+.detail-row {
+    display: grid;
+
+    grid-template-columns: 200px 1fr;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+.login-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background: #f4f6f9;
+}
+
+
+.login-container {
+    width: 400px;
+
+    padding: 35px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+.login-header {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+.login-header h1 {
+    font-size: 26px;
+
+    margin-bottom: 10px;
+}
+
+
+.login-header p {
+    color: #6b7280;
+}
+
+
+.login-container button {
+    width: 100%;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   MESSAGES
+========================================= */
+
+.message {
+    padding: 12px;
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    border-radius: 7px;
+
+    margin-bottom: 15px;
+}
+
+.messages {
+    margin-bottom: 15px;
+}
+
+
+/* =========================================
+   ERRORS
+========================================= */
+
+.error-message,
+.field-error,
+.form-errors {
+    color: #dc2626;
+
+    margin-top: 5px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-message,
+.empty-state {
+    text-align: center;
+
+    padding: 40px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.pagination {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 25px;
+}
+
+
+.pagination a {
+    text-decoration: none;
+
+    color: #2563eb;
+
+    padding: 8px 14px;
+
+    background: white;
+
+    border-radius: 6px;
+}
+
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .navbar {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 15px 20px;
+
+        gap: 10px;
+    }
+
+    .navbar-links {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 25px 20px;
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-field.full-width {
+        grid-column: auto;
+    }
+
+    .profile-details {
+        grid-template-columns: 1fr;
+    }
+
+    .full-detail {
+        grid-column: auto;
+    }
+
+    .detail-row {
+        grid-template-columns: 1fr;
+
+        gap: 5px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
+    .page-container > .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .search-box form {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar-links a {
+        font-size: 13px;
+
+        padding: 8px 9px;
+    }
+
+    .main-content {
+        padding: 20px 15px;
+    }
+
+    .page-header h1,
+    .dashboard-header h1 {
+        font-size: 28px;
+    }
+
+    .student-form-card {
+        padding: 20px;
+        margin: 15px auto;
+    }
+
+    .form-card-header {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================
+   MY COURSE PAGE
+========================================= */
+
+.my-course-page {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.my-course-header {
+    margin-bottom: 30px !important;
+}
+
+.my-course-header h1 {
+    margin: 0 0 8px 0 !important;
+    font-size: 34px;
+    color: #1f2937;
+}
+
+.my-course-header p {
+    margin: 0 !important;
+    font-size: 17px;
+    color: #6b7280;
+}
+
+
+/* COURSE INFORMATION CARD */
+
+.my-course-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.08);
+
+    margin: 0 0 50px 0 !important;
+}
+
+
+.my-course-card h2 {
+    margin: 0 0 18px 0 !important;
+
+    font-size: 28px;
+
+    color: #1f2937;
+}
+
+
+.my-course-card p {
+    margin: 9px 0 !important;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    color: #374151;
+}
+
+
+/* =========================================
+   MY SUBJECTS SECTION
+========================================= */
+
+.my-subjects-section {
+    width: 100%;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+
+.my-subjects-header {
+    margin: 0 0 22px 0 !important;
+
+    padding: 0 !important;
+}
+
+
+.my-subjects-header h2 {
+    margin: 0 0 7px 0 !important;
+
+    font-size: 27px;
+
+    color: #1f2937;
+}
+
+
+.my-subjects-header p {
+    margin: 0 !important;
+
+    font-size: 16px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================
+   MY SUBJECTS TABLE
+========================================= */
+
+.my-subjects-table-container {
+    width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+.my-subjects-table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+
+.my-subjects-table th,
+.my-subjects-table td {
+    padding: 15px 18px;
+
+    text-align: left;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.my-subjects-table th {
+    background: #f9fafb;
+
+    color: #374151;
+
+    font-weight: 600;
+}
+
+
+.my-subjects-table td {
+    color: #374151;
+}
+
+
+.my-subjects-table tr:last-child td {
+    border-bottom: none;
+}
+
+
+.my-subjects-table .empty-message {
+    text-align: center;
+
+    padding: 35px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================
+   MY COURSE - MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .my-course-page {
+        width: 100%;
+    }
+
+    .my-course-card {
+        padding: 22px;
+
+        margin-bottom: 40px !important;
+    }
+
+    .my-course-card h2 {
+        font-size: 24px;
+    }
+
+    .my-subjects-header h2 {
+        font-size: 23px;
+    }
+
+    .my-subjects-table th,
+    .my-subjects-table td {
+        padding: 12px;
+    }
+
+}
+
+
+
+/* ================================
+   TEACHER SUBJECT CHECKBOXES
+================================ */
+
+.teacher-subject-checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.teacher-subject-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+}
+
+/* Checkbox */
+.teacher-subject-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    flex: 0 0 18px;
+    cursor: pointer;
+}
+
+/* Subject text */
+.teacher-subject-item label {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+/* Text inside label */
+.teacher-subject-text {
+    display: inline;
+}
+
+/* =========================================
+   TEACHER - TEACHES
+========================================= */
+
+.teacher-teaches-field {
+    width: 100%;
+}
+
+
+.teacher-teaches-title {
+    display: block !important;
+
+    width: 100% !important;
+
+    margin: 0 0 10px 0 !important;
+
+    padding: 0 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 600 !important;
+
+    color: #374151 !important;
+}
+
+
+/* SUBJECT LIST */
+
+.teacher-subject-checkboxes {
+    display: flex !important;
+
+    flex-direction: column !important;
+
+    align-items: stretch !important;
+
+    width: 100% !important;
+
+    gap: 8px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+}
+
+
+/* ONE SUBJECT */
+
+.teacher-subject-item {
+    display: flex !important;
+
+    flex-direction: row !important;
+
+    align-items: center !important;
+
+    justify-content: flex-start !important;
+
+    width: 100% !important;
+
+    min-height: 44px !important;
+
+    margin: 0 !important;
+
+    padding: 10px 14px !important;
+
+    gap: 10px !important;
+
+    background: #f9fafb !important;
+
+    border: 1px solid #e5e7eb !important;
+
+    border-radius: 8px !important;
+
+    box-sizing: border-box !important;
+
+    cursor: pointer !important;
+}
+
+
+/* CHECKBOX */
+
+.teacher-subject-item input[type="checkbox"] {
+
+    width: 18px !important;
+
+    height: 18px !important;
+
+    min-width: 18px !important;
+
+    max-width: 18px !important;
+
+    min-height: 18px !important;
+
+    max-height: 18px !important;
+
+    flex: 0 0 18px !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    display: inline-block !important;
+
+    position: static !important;
+
+    opacity: 1 !important;
+
+    visibility: visible !important;
+
+    appearance: auto !important;
+
+    -webkit-appearance: checkbox !important;
+
+    cursor: pointer !important;
+
+    accent-color: #2563eb !important;
+}
+
+
+/* SUBJECT TEXT */
+
+.teacher-subject-item label {
+
+    display: block !important;
+
+    flex: 1 1 auto !important;
+
+    width: auto !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    font-size: 14px !important;
+
+    font-weight: 500 !important;
+
+    line-height: 1.4 !important;
+
+    color: #374151 !important;
+
+    text-align: left !important;
+
+    cursor: pointer !important;
+}
+
+
+/* HOVER */
+
+.teacher-subject-item:hover {
+
+    background: #eff6ff !important;
+
+    border-color: #93c5fd !important;
+}
+
+
+/* PLACEHOLDER */
+
+.subjects-placeholder {
+
+    width: 100% !important;
+
+    padding: 14px !important;
+
+    text-align: center !important;
+
+    font-size: 14px !important;
+
+    color: #6b7280 !important;
+
+    background: #f9fafb !important;
+
+    border: 1px dashed #d1d5db !important;
+
+    border-radius: 8px !important;
+}
+
+
+/* HELP TEXT */
+
+.teacher-subject-help {
+
+    display: block !important;
+
+    margin-top: 8px !important;
+
+    font-size: 13px !important;
+
+    color: #6b7280 !important;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+    .teacher-subject-item {
+
+        min-height: 42px !important;
+
+        padding: 9px 11px !important;
+
+    }
+
+    .teacher-subject-item label {
+
+        font-size: 13px !important;
+
+    }
+
+}
+
+/* =========================================
+   TEACHER MY SUBJECTS - FINAL SPACING
+========================================= */
+
+/* Space between teacher card and Subjects heading */
+
+.profile-card + .my-teacher-subjects-header {
+    margin-top: 50px !important;
+    margin-bottom: 22px !important;
+    padding-top: 0 !important;
+}
+
+
+/* Subjects heading */
+
+.profile-card + .my-teacher-subjects-header h2 {
+    margin: 0 0 7px 0 !important;
+    padding: 0 !important;
+}
+
+
+/* Subjects description */
+
+.profile-card + .my-teacher-subjects-header p {
+    margin: 0 !important;
+    padding: 0 !important;
+}

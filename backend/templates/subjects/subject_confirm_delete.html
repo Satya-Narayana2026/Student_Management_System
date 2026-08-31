@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Subject - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="delete-container">
+
+        <h1>Delete Subject</h1>
+
+        <p>
+            Are you sure you want to delete this subject?
+        </p>
+
+        <div class="delete-info">
+
+            <p>
+                <strong>Subject Code:</strong>
+                {{ subject.code }}
+            </p>
+
+            <p>
+                <strong>Subject Name:</strong>
+                {{ subject.name }}
+            </p>
+
+            <p>
+                <strong>Course:</strong>
+                {{ subject.course.name }}
+            </p>
+
+            <p>
+                <strong>Semester:</strong>
+                {{ subject.semester }}
+            </p>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                >
+                    Yes, Delete
+                </button>
+
+                <a
+                    href="{% url 'subjects:subject_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

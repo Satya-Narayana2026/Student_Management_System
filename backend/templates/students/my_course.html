@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Course - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="my-course-page">
+
+    <!-- PAGE HEADER -->
+
+    <div class="my-course-header">
+
+        <h1>My Course</h1>
+
+        <p>
+            View your course and subjects
+        </p>
+
+    </div>
+
+
+    {% if course %}
+
+        <!-- COURSE -->
+
+        <div class="my-course-card">
+
+            <h2>
+                {{ course.name }}
+            </h2>
+
+            <p>
+                <strong>Course Code:</strong>
+                {{ course.code }}
+            </p>
+
+            <p>
+                <strong>Department:</strong>
+                {{ course.department.name }}
+            </p>
+
+            <p>
+                <strong>Duration:</strong>
+                {{ course.duration_years }} Years
+            </p>
+
+        </div>
+
+
+        <!-- SUBJECTS -->
+
+        <div class="my-subjects-section">
+
+            <div class="my-subjects-header">
+
+                <h2>
+                    My Subjects
+                </h2>
+
+                <p>
+                    Subjects available in your course
+                </p>
+
+            </div>
+
+
+            <div class="my-subjects-table-container">
+
+                <table class="my-subjects-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Subject Code</th>
+                            <th>Subject Name</th>
+                            <th>Semester</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for subject in subjects %}
+
+                            <tr>
+
+                                <td>
+                                    {{ subject.code }}
+                                </td>
+
+                                <td>
+                                    {{ subject.name }}
+                                </td>
+
+                                <td>
+                                    Semester {{ subject.semester }}
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="3">
+                                    No subjects assigned to your course.
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    {% else %}
+
+        <div class="my-course-no-course">
+
+            <h2>
+                No Course Assigned
+            </h2>
+
+            <p>
+                Your administrator has not assigned a course yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

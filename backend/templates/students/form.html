@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }} - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="student-form-card">
+
+        <!-- FORM HEADER -->
+
+        <div class="form-card-header">
+
+            <div class="form-icon">
+                🎓
+            </div>
+
+            <div>
+
+                <h2>
+                    {{ title }}
+                </h2>
+
+                <p>
+                    Fill in the student information below.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORM -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            {% if form.non_field_errors %}
+
+                <div class="form-errors">
+
+                    {{ form.non_field_errors }}
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="form-grid">
+
+                {% for field in form %}
+
+                    <div class="form-field {% if field.name == 'address' %}full-width{% endif %}">
+
+                        <label for="{{ field.id_for_label }}">
+
+                            {{ field.label }}
+
+                            {% if field.field.required %}
+                                <span class="required">*</span>
+                            {% endif %}
+
+                        </label>
+
+
+                        {{ field }}
+
+
+                        {% if field.help_text %}
+
+                            <small class="help-text">
+
+                                {{ field.help_text }}
+
+                            </small>
+
+                        {% endif %}
+
+
+                        {% if field.errors %}
+
+                            <div class="field-error">
+
+                                {{ field.errors }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- FORM ACTIONS -->
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    {% if 'Add' in title %}
+                        + Add Student
+                    {% else %}
+                        Update Student
+                    {% endif %}
+                </button>
+
+
+                <a
+                    href="{% url 'students:student_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+
+{% block title %}
+Attendance - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+
+    <!-- ========================= -->
+    <!-- PAGE HEADER -->
+    <!-- ========================= -->
+
+    <div class="page-header">
+
+        <div>
+
+
+            {% if can_manage_attendance %}
+
+                <h1>
+                    Attendance
+                </h1>
+
+                <p>
+                    Manage student attendance records
+                </p>
+
+
+            {% else %}
+
+                <h1>
+                    My Attendance
+                </h1>
+
+                <p>
+                    View your attendance records
+                </p>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- MARK ATTENDANCE BUTTON -->
+
+        {% if can_manage_attendance %}
+
+            <a
+                href="{% url 'attendance:attendance_add' %}"
+                class="btn btn-primary"
+            >
+                + Mark Attendance
+            </a>
+
+        {% endif %}
+
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- MESSAGES -->
+    <!-- ========================= -->
+
+    {% if messages %}
+
+        <div class="messages">
+
+            {% for message in messages %}
+
+                <div class="message">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ========================= -->
+    <!-- SEARCH AND FILTER -->
+    <!-- ========================= -->
+
+    <div class="search-box">
+
+        <form method="GET">
+
+
+            <!-- ADMIN / TEACHER SEARCH -->
+
+            {% if can_manage_attendance %}
+
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ search }}"
+                    placeholder="Search by Student ID or Name..."
+                >
+
+            {% endif %}
+
+
+            <!-- DATE FILTER -->
+
+            <input
+                type="date"
+                name="date"
+                value="{{ selected_date }}"
+            >
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Search
+            </button>
+
+
+            <!-- CLEAR BUTTON -->
+
+            {% if search or selected_date %}
+
+                <a
+                    href="{% url 'attendance:attendance_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+
+        </form>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- ATTENDANCE TABLE -->
+    <!-- ========================= -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+
+                    <!-- STUDENT ID -->
+
+                    {% if can_manage_attendance %}
+
+                        <th>
+                            Student ID
+                        </th>
+
+                    {% endif %}
+
+
+                    <!-- STUDENT NAME -->
+
+                    <th>
+                        Student Name
+                    </th>
+
+
+                    <!-- COURSE -->
+
+                    <th>
+                        Course
+                    </th>
+
+
+                    <!-- DATE -->
+
+                    <th>
+                        Date
+                    </th>
+
+
+                    <!-- STATUS -->
+
+                    <th>
+                        Status
+                    </th>
+
+
+                    <!-- REMARKS -->
+
+                    <th>
+                        Remarks
+                    </th>
+
+
+                    <!-- ACTIONS -->
+
+                    {% if can_manage_attendance %}
+
+                        <th>
+                            Actions
+                        </th>
+
+                    {% endif %}
+
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+                {% for attendance in attendance_records %}
+
+                    <tr>
+
+
+                        <!-- STUDENT ID -->
+
+                        {% if can_manage_attendance %}
+
+                            <td>
+
+                                {{ attendance.student.student_id }}
+
+                            </td>
+
+                        {% endif %}
+
+
+                        <!-- STUDENT NAME -->
+
+                        <td>
+
+                            {{ attendance.student.first_name }}
+                            {{ attendance.student.last_name }}
+
+                        </td>
+
+
+                        <!-- COURSE -->
+
+                        <td>
+
+                            {{ attendance.student.course }}
+
+                        </td>
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            {{ attendance.date }}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span
+                                class="attendance-status status-{{ attendance.status|lower }}"
+                            >
+
+                                {{ attendance.status }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- REMARKS -->
+
+                        <td>
+
+                            {{ attendance.remarks|default:"-" }}
+
+                        </td>
+
+
+                        <!-- ========================= -->
+                        <!-- ACTIONS -->
+                        <!-- ========================= -->
+
+                        {% if can_manage_attendance %}
+
+                            <td>
+
+
+                                <!-- EDIT -->
+
+                                <a
+                                    href="{% url 'attendance:attendance_edit' attendance.pk %}"
+                                    class="action-link"
+                                >
+                                    Edit
+                                </a>
+
+
+                                <!-- DELETE -->
+
+                                {% if is_admin %}
+
+                                    <a
+                                        href="{% url 'attendance:attendance_delete' attendance.pk %}"
+                                        class="action-link delete-link"
+                                    >
+                                        Delete
+                                    </a>
+
+                                {% endif %}
+
+
+                            </td>
+
+                        {% endif %}
+
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+
+                        {% if can_manage_attendance %}
+
+                            <td
+                                colspan="7"
+                                class="empty-message"
+                            >
+
+                        {% else %}
+
+                            <td
+                                colspan="5"
+                                class="empty-message"
+                            >
+
+                        {% endif %}
+
+
+                            No attendance records found.
+
+                        </td>
+
+
+                    </tr>
+
+                {% endfor %}
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

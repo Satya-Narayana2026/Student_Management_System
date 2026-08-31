@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                View your teacher information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <!-- PROFILE HEADER -->
+
+        <div class="profile-header">
+
+            <div class="profile-avatar">
+
+                {{ teacher.first_name|first|upper }}
+
+            </div>
+
+
+            <div>
+
+                <h2>
+                    {{ teacher.first_name }}
+                    {{ teacher.last_name }}
+                </h2>
+
+                <p>
+                    {{ teacher.designation }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE DETAILS -->
+
+        <div class="profile-details">
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Teacher ID
+                </span>
+
+                <span class="detail-value">
+                    {{ teacher.teacher_id }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Email
+                </span>
+
+                <span class="detail-value">
+                    {{ teacher.email }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Phone
+                </span>
+
+                <span class="detail-value">
+                    {{ teacher.phone }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Department
+                </span>
+
+                <span class="detail-value">
+
+                    {{ teacher.department.code }}
+                    -
+                    {{ teacher.department.name }}
+
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Designation
+                </span>
+
+                <span class="detail-value">
+                    {{ teacher.designation }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Qualification
+                </span>
+
+                <span class="detail-value">
+                    {{ teacher.qualification }}
+                </span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+                <span class="detail-label">
+                    Joining Date
+                </span>
+
+                <span class="detail-value">
+                    {{ teacher.joining_date }}
+                </span>
+
+            </div>
+
+
+            {% if teacher.address %}
+
+                <div class="detail-item full-detail">
+
+                    <span class="detail-label">
+                        Address
+                    </span>
+
+                    <span class="detail-value">
+                        {{ teacher.address }}
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

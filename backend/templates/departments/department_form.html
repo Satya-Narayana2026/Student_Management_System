@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }} - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <div class="student-form-card">
+
+        <div class="form-card-header">
+
+            <div class="form-icon">
+                🏢
+            </div>
+
+            <div>
+
+                <h2>{{ title }}</h2>
+
+                <p>
+                    Enter department information
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+
+            <div class="form-grid">
+
+                {% for field in form %}
+
+                    <div class="form-field">
+
+                        <label for="{{ field.id_for_label }}">
+
+                            {{ field.label }}
+
+                            {% if field.field.required %}
+                                <span class="required">*</span>
+                            {% endif %}
+
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+
+                            <div class="field-error">
+                                {{ field.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <a
+                    href="{% url 'departments:department_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    {{ button_text }}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teachers - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div>
+            <h1>Teachers</h1>
+            <p>Manage all teachers</p>
+        </div>
+
+        <a
+            href="{% url 'teachers:teacher_add' %}"
+            class="btn btn-primary"
+        >
+            + Add Teacher
+        </a>
+
+    </div>
+
+
+    <!-- SEARCH / FILTER -->
+
+    <div class="search-box">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                value="{{ search }}"
+                placeholder="Search by Teacher ID, Name, Email..."
+            >
+
+
+            <select
+                name="department"
+                class="form-control"
+            >
+
+                <option value="">
+                    All Departments
+                </option>
+
+                {% for department in departments %}
+
+                    <option
+                        value="{{ department.id }}"
+                        {% if selected_department == department.id|stringformat:"s" %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ department.code }} - {{ department.name }}
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                Search
+            </button>
+
+
+            {% if search or selected_department %}
+
+                <a
+                    href="{% url 'teachers:teacher_list' %}"
+                    class="btn btn-secondary"
+                >
+                    Clear
+                </a>
+
+            {% endif %}
+
+        </form>
+
+    </div>
+
+
+    <!-- TEACHER TABLE -->
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Teacher ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Qualification</th>
+                    <th>Joining Date</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for teacher in teachers %}
+
+                    <tr>
+
+                        <td>
+                            {{ teacher.teacher_id }}
+                        </td>
+
+
+                        <td>
+                            {{ teacher.first_name }}
+                            {{ teacher.last_name }}
+                        </td>
+
+
+                        <td>
+                            {{ teacher.email }}
+                        </td>
+
+
+                        <td>
+                            {{ teacher.phone }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ teacher.department.code }}
+                            </strong>
+
+                            <br>
+
+                            <small>
+                                {{ teacher.department.name }}
+                            </small>
+
+                        </td>
+
+
+                        <td>
+                            {{ teacher.designation }}
+                        </td>
+
+
+                        <td>
+                            {{ teacher.qualification }}
+                        </td>
+
+
+                        <td>
+                            {{ teacher.joining_date }}
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="{% url 'teachers:teacher_edit' teacher.pk %}"
+                                class="action-link"
+                            >
+                                Edit
+                            </a>
+
+                            <a
+                                href="{% url 'teachers:teacher_delete' teacher.pk %}"
+                                class="action-link delete-link"
+                            >
+                                Delete
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                {% empty %}
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="empty-message"
+                        >
+                            No teachers found.
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

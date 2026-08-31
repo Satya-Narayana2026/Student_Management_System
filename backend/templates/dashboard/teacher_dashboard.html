@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}
+Teacher Dashboard - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-header">
+
+        <h1>
+            Teacher Dashboard
+        </h1>
+
+        <p>
+            Welcome, {{ request.user.username }}
+        </p>
+
+    </div>
+
+
+    <!-- STATISTICS CARDS -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- TOTAL STUDENTS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    👨‍🎓
+                </div>
+
+                <h2>
+                    Total Students
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_students }}
+
+                </div>
+
+            </div>
+
+            <a
+                href="{% url 'students:student_list' %}"
+                class="dashboard-btn"
+            >
+                View Students →
+            </a>
+
+        </div>
+
+
+        <!-- TOTAL COURSES -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📚
+                </div>
+
+                <h2>
+                    Total Courses
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_courses }}
+
+                </div>
+
+            </div>
+
+            <a
+                href="{% url 'courses:course_list' %}"
+                class="dashboard-btn"
+            >
+                View Courses →
+            </a>
+
+        </div>
+
+
+        <!-- ATTENDANCE -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📅
+                </div>
+
+                <h2>
+                    Attendance Records
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_attendance }}
+
+                </div>
+
+            </div>
+
+            <a
+                href="{% url 'attendance:attendance_list' %}"
+                class="dashboard-btn"
+            >
+                Manage Attendance →
+            </a>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📝
+                </div>
+
+                <h2>
+                    Results
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_results }}
+
+                </div>
+
+            </div>
+
+            <a
+                href="{% url 'results:result_list' %}"
+                class="dashboard-btn"
+            >
+                Manage Results →
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

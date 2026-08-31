@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard - Student Management System
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-container">
+
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-header">
+
+        <h1>
+            Admin Dashboard
+        </h1>
+
+        <p>
+            Welcome, {{ request.user.username }}
+        </p>
+
+    </div>
+
+
+
+    <!-- DASHBOARD CARDS -->
+
+    <div class="dashboard-grid">
+
+
+        <!-- TOTAL STUDENTS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    👨‍🎓
+                </div>
+
+                <h2>
+                    Total Students
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_students }}
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'students:student_list' %}"
+                class="dashboard-btn"
+            >
+
+                View Students →
+
+            </a>
+
+        </div>
+
+
+
+        <!-- TOTAL TEACHERS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    👩‍🏫
+                </div>
+
+                <h2>
+                    Total Teachers
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_teachers }}
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'teachers:teacher_list' %}"
+                class="dashboard-btn"
+            >
+
+                View Teachers →
+
+            </a>
+
+        </div>
+
+
+
+        <!-- TOTAL COURSES -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📚
+                </div>
+
+                <h2>
+                    Total Courses
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_courses }}
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="{% url 'courses:course_list' %}"
+                class="dashboard-btn"
+            >
+
+                View Courses →
+
+            </a>
+
+        </div>
+
+
+
+        <!-- TOTAL SUBJECTS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📖
+                </div>
+
+                <h2>
+                    Total Subjects
+                </h2>
+
+                <div class="dashboard-count">
+
+                    {{ total_subjects }}
+
+                </div>
+
+            </div>
+
+            <a href="{% url 'subjects:subject_list' %}" class="dashboard-btn">
+                View Subjects →
+            </a>
+
+        </div>
+
+
+
+        <!-- ATTENDANCE -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📅
+                </div>
+
+                <h2>
+                    Attendance
+                </h2>
+
+                <p>
+                    Manage student attendance records.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'attendance:attendance_list' %}"
+                class="dashboard-btn"
+            >
+
+                Manage Attendance →
+
+            </a>
+
+        </div>
+
+
+
+        <!-- RESULTS -->
+
+        <div class="dashboard-card">
+
+            <div>
+
+                <div class="dashboard-icon">
+                    📝
+                </div>
+
+                <h2>
+                    Results
+                </h2>
+
+                <p>
+                    Manage student examination results.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'results:result_list' %}"
+                class="dashboard-btn"
+            >
+
+                Manage Results →
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="quick-actions">
+
+        <h2>
+            Quick Actions
+        </h2>
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="dashboard-card">
+
+                <div>
+
+                    <div class="dashboard-icon">
+                        ➕
+                    </div>
+
+                    <h2>
+                        Add Student
+                    </h2>
+
+                    <p>
+                        Register a new student.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{% url 'students:student_add' %}"
+                    class="dashboard-btn"
+                >
+
+                    Add Student →
+
+                </a>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+                <div>
+
+                    <div class="dashboard-icon">
+                        ➕
+                    </div>
+
+                    <h2>
+                        Add Teacher
+                    </h2>
+
+                    <p>
+                        Add a new teacher.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{% url 'teachers:teacher_add' %}"
+                    class="dashboard-btn"
+                >
+
+                    Add Teacher →
+
+                </a>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+                <div>
+
+                    <div class="dashboard-icon">
+                        📅
+                    </div>
+
+                    <h2>
+                        Mark Attendance
+                    </h2>
+
+                    <p>
+                        Record student attendance.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="{% url 'attendance:attendance_add' %}"
+                    class="dashboard-btn"
+                >
+
+                    Mark Attendance →
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

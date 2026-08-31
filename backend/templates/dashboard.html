@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard - Student Management System
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <header class="dashboard-header">
+
+        <div>
+            <h1>
+                Student Management System
+            </h1>
+
+            <p>
+                Welcome, {{ request.user.username }}
+            </p>
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout-btn">
+            Logout
+        </a>
+
+    </header>
+
+
+    <main class="dashboard-content">
+
+        <h2>
+            Dashboard
+        </h2>
+
+
+        <div class="dashboard-cards">
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Students
+                </h3>
+
+                <p>
+                    Manage students
+                </p>
+
+                <a href="#">
+                    View Students
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Teachers
+                </h3>
+
+                <p>
+                    Manage teachers
+                </p>
+
+                <a href="#">
+                    View Teachers
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Courses
+                </h3>
+
+                <p>
+                    Manage courses
+                </p>
+
+                <a href="#">
+                    View Courses
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Attendance
+                </h3>
+
+                <p>
+                    Manage attendance
+                </p>
+
+                <a href="#">
+                    View Attendance
+                </a>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Results
+                </h3>
+
+                <p>
+                    Manage student results
+                </p>
+
+                <a href="#">
+                    View Results
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}
