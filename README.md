@@ -173,7 +173,7 @@ Students have access to their own academic information.
 
 Student Dashboard
 
-Students can access:
+### Students can access:
 
 Dashboard
 My Profile
@@ -182,7 +182,7 @@ My Attendance
 My Results
 My Profile
 
-Students can view:
+### Students can view:
 
 Student ID
 Name
@@ -256,7 +256,7 @@ Teacher
 Subject
 
 
-🗄️ Database
+### 🗄️ Database:
 
 The application uses MySQL as its database.
 
@@ -316,8 +316,8 @@ Simple JWT
 mysqlclient
 
 
-## 📁 Project Structure:
-# 📁 Project Structure
+# 📁 Project Structure:
+
 
 ```text
 STUDENT_MANAGEMENT_SYSTEM/
