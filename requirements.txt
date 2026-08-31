@@ -1,4 +1,6 @@
-Django==5.2
-mysqlclient==2.2.8
-djangorestframework==3.18.0
-djangorestframework-simplejwt==5.5.1
+Python 3.14
+Django 5.2
+MySQL 8.0+
+mysqlclient
+Django REST Framework
+djangorestframework-simplejwt
