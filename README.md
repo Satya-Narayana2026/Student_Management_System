@@ -101,7 +101,7 @@ Manage academic performance information
 
 
 
-👨‍🏫 Teacher Features:
+## 👨‍🏫 Teacher Features:
 
 Teachers have their own dashboard and can access teacher-specific information.
 
@@ -166,7 +166,8 @@ The teacher can be assigned multiple subjects.
 
 This is implemented using a Many-to-Many relationship between Teacher and Subject.
 
-👨‍🎓 Student Features:
+
+## 👨‍🎓 Student Features:
 
 Students have access to their own academic information.
 
@@ -211,7 +212,7 @@ Students can view their academic results.
 
 
 
-🔐 Authentication and Authorization:
+## 🔐 Authentication and Authorization:
 
 The project uses Django authentication and Django Groups for role-based access.
 
@@ -224,7 +225,7 @@ Users are assigned to the appropriate group.
 
 The navigation and protected views are designed according to the user's role.
 
-🏗️ System Architecture
+## 🏗️ System Architecture
 
 The major relationships in the application are:
 
@@ -249,6 +250,8 @@ Teachers can teach multiple subjects:
 Teacher
    ↕
 Subject
+
+
 🗄️ Database
 
 The application uses MySQL as its database.
@@ -285,17 +288,20 @@ Student and Teacher profiles are connected to Django user accounts for authentic
 
 
 
-💻 Technology Stack:
+## 💻 Technology Stack:
 
 ## Frontend:
 HTML5
 CSS3
 JavaScript
+
 ## Backend:
 Python
 Django 5.2
+
 ## Database:
 MySQL 8.0+
+
 ## Authentication:
 Django Authentication
 Django Groups
@@ -306,7 +312,8 @@ Simple JWT
 mysqlclient
 
 
-📁 Project Structure
+## 📁 Project Structure:
+
 STUDENT_MANAGEMENT_SYSTEM/
 │
 ├── backend/
@@ -352,13 +359,14 @@ STUDENT_MANAGEMENT_SYSTEM/
 └── README.md
 
 
-⚙️ Installation
+## ⚙️ Installation:
+
 1. Clone the Repository
 git clone https://github.com/Satya-Narayana2026/Student_Management_System.git
 
 Go into the project:
-
 cd Student_Management_System
+
 2. Create Virtual Environment
 
 Create a virtual environment:
@@ -368,6 +376,7 @@ python -m venv backend/venv
 Activate it on Windows:
 
 backend\venv\Scripts\activate
+
 3. Install Dependencies
 
 Install all required Python packages:
@@ -375,7 +384,7 @@ Install all required Python packages:
 pip install -r requirements.txt
 
 
-🗄️ MySQL Setup
+## 🗄️ MySQL Setup:
 
 Make sure MySQL Server is installed and running.
 
@@ -402,7 +411,7 @@ DATABASES = {
 
 For production use, database credentials should be stored in environment variables.
 
-🔄 Database Migrations
+## 🔄 Database Migrations:
 
 Go to the backend folder:
 
